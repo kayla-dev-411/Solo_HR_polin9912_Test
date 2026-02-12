@@ -28,14 +28,7 @@ Deployed on ▲ **Vercel** for lightning-fast performance 🚀.
 
 ---
 
-## Installation
 
-```bash
-git clone https://github.com/davismiler/nike-flow.git
-cd nike-flow
-npm install
-npm run dev
-```
 
 The application will be available at `http://localhost:5173`
 

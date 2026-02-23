@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 const ProductDisplay = (props) => {
     const { product } = props
+    console.log(product)
     const { addToCart } = useContext(ShopContext)
     const [mainImage, setMainImage] = useState(product.image)
     return (
@@ -23,11 +24,11 @@ const ProductDisplay = (props) => {
             <div className='flex md:1/2 flex-col mt-8 md:mt-0'>
                 <h1 className='text-foreground text-4xl font-bold'>{product.name}</h1>
                 <div className='flex items-center gap-1 text-gray-300 text-lg mt-4'>
-                    <Star fill='#138695' />
-                    <Star fill='#138695' />
-                    <Star fill='#138695' />
-                    <Star fill='#138695' />
-                    <Star fill='gray' />
+                    <Star fill='#eab308' className='text-yellow-500' />
+                    <Star fill='#eab308' className='text-yellow-500' />
+                    <Star fill='#eab308' className='text-yellow-500' />
+                    <Star fill='#eab308' className='text-yellow-500' />
+                    <Star fill='gray' className='text-gray-500' />
                     <p>(122)</p>
                 </div>
                 <div className='flex gap-5 font-semibold items-center my-5'>

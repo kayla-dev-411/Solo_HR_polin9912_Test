@@ -87,6 +87,14 @@
     @apply scroll-smooth;
   }
 
+  /* Our app: cursor shape rectangle (overrides library circle) */
+  #mouse-follower,
+  #mouse-follower > div,
+  #mouse-follower > div > div,
+  #mouse-follower > div > div > div {
+    border-radius: 0 !important;
+  }
+
   .text-shadow {
     text-shadow: -6px 6px 10px rgba(0,0,0,0.4);
   }

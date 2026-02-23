@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Logo from '../assets/logo2.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
 import { FaRegUser } from "react-icons/fa";
 import { HiMenuAlt1, HiMenuAlt3, } from "react-icons/hi";
 import ResponsiveMenu from './ResponsiveMenu';
 import { UpdateFollower } from 'react-mouse-follower';
+import { AuthContext } from '../context/AuthContext';
 
 
 export const NavbarMenu = [
@@ -38,6 +39,8 @@ export const NavbarMenu = [
 
 const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false)
+  const { user, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
   const toggleMenu = () => {
     setShowMenu(!showMenu)
   }
@@ -92,15 +95,35 @@ const Navbar = () => {
               mixBlendMode: "difference"
             }}
             >
-            <button className='text-xl ps-8'>
-              <FaRegUser />
-            </button>
+            {user ? (
+              <span className="flex items-center gap-3 ps-8">
+                <Link to="/profile" className="text-sm font-medium hover:opacity-90 transition-opacity">
+                  {user.username}
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => { logout(); navigate('/'); }}
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                >
+                  Logout
+                </button>
+              </span>
+            ) : (
+              <Link to="/login" className="text-xl ps-8 inline-flex items-center gap-1">
+                <FaRegUser /> <span className="text-sm font-semibold uppercase">Sign in</span>
+              </Link>
+            )}
             </UpdateFollower>
 
           </ul>
         </div>
-        <div className='flex gap-8 md:hidden z-50'>
+        <div className='flex gap-8 md:hidden z-50 items-center'>
           <Link to={'/cart'}><ShoppingCart /></Link>
+          {user ? (
+            <Link to="/profile" className="text-sm font-medium">{user.username}</Link>
+          ) : (
+            <Link to="/login"><FaRegUser size={20} /></Link>
+          )}
           {/* mobile hamburger menu */}
           {
             showMenu ? (

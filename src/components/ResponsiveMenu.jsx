@@ -1,20 +1,38 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FaUserCircle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { NavbarMenu } from './Navbar';
-
+import { AuthContext } from '../context/AuthContext';
 
 const ResponsiveMenu = ({showMenu, setShowMenu}) => {
+  const { user, logout } = useContext(AuthContext)
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    setShowMenu(false)
+    navigate('/')
+  }
+
   return (
     <div className={`${showMenu ? "left-0" : "-left-[100%]"} fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-gray-900/95 backdrop-blur-md px-8 pb-6 pt-16 text-foreground transition-all duration-200 md:hidden rounded-r-xl shadow-md border-r border-gray-800`}>
       <div>
         <div className='flex items-center justify-start gap-3'>
             <FaUserCircle size={50} className='text-foreground'/>
             <div>
-                <h1 className='text-foreground'>Hello User</h1>
-                <h1 className='text-sm text-gray-400'>Premium User</h1>
+                <h1 className='text-foreground'>{user ? `Hello, ${user.username}` : 'Hello User'}</h1>
+                <h1 className='text-sm text-gray-400'>{user ? user.email : 'Sign in to your account'}</h1>
             </div>
         </div>
+        {user && (
+          <div className='mt-4 flex gap-2'>
+            <Link to="/profile" onClick={() => setShowMenu(false)} className='text-sm text-[#138695] hover:underline'>Profile</Link>
+            <button type="button" onClick={handleLogout} className='text-sm text-gray-400 hover:text-foreground'>Logout</button>
+          </div>
+        )}
+        {!user && (
+          <Link to="/login" onClick={() => setShowMenu(false)} className='mt-4 inline-block text-sm text-[#138695] hover:underline'>Sign in</Link>
+        )}
         <nav className='mt-12'>
             <ul className='space-y-4 text-sl text-foreground flex flex-col'>
                 {NavbarMenu.map((item, index)=> (

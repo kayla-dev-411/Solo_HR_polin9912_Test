@@ -10,6 +10,9 @@ import { UpdateFollower } from 'react-mouse-follower'
 import ProductList from './components/ProductList'
 import Navbar2 from './components/Navbar2'
 import SingleProduct from './components/SingleProduct'
+import Login from './Pages/Login'
+import Register from './Pages/Register'
+import Profile from './Pages/Profile'
 
 const router = createBrowserRouter([
   {
@@ -40,7 +43,18 @@ const router = createBrowserRouter([
     path:'/cart',
     element: <><Navbar2/><Cart/><Footer/></>
   },
- 
+  {
+    path:'/login',
+    element: <Login />
+  },
+  {
+    path:'/register',
+    element: <Register />
+  },
+  {
+    path:'/profile',
+    element: <Profile />
+  },
 ])
 
 const App = () => {
